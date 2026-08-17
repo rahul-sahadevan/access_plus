@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+/* css for app layout */
+:root {
+    --sidebar-width: 240px;
+}
+
+.app-layout {
+    min-height: 100vh;
+}
+
+/* Main area */
+
+.app-main {
+    min-height: 100vh;
+    margin-left: var(--sidebar-width);
+
+    transition: margin-left 0.25s ease;
+}
+
+/* When sidebar is closed */
+
+.sidebar-closed .app-main {
+    margin-left: 0;
+}
+.main-content {
+    padding: 32px;
+    background: #f9fafb;
+    min-height: calc(100vh - 70px);
+    box-sizing: border-box;
+}

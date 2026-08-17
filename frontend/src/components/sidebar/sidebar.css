@@ -1,0 +1,108 @@
+.sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: var(--sidebar-width);
+    height: 100vh;
+
+    background: #111827;
+
+    transition: transform 0.25s ease;
+
+    z-index: 1000;
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar.closed {
+    transform: translateX(-100%);
+}
+
+/* Logo */
+
+.sidebar-logo {
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 24px;
+
+    border-bottom: 1px solid #1f2937;
+}
+
+.sidebar-logo h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px 12px;
+
+    gap: 5px;
+}
+
+/* Links */
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    color: #9ca3af;
+    text-decoration: none;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+    background: #1f2937;
+    color: #ffffff;
+}
+
+.sidebar-nav a.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+/* Active link */
+
+.sidebar-nav a.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* Section heading */
+
+.sidebar-section {
+    padding: 18px 14px 8px;
+
+    color: #6b7280;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
