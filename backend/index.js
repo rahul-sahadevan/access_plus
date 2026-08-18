@@ -26,10 +26,13 @@ const PORT = process.env.PORT || 13000
 // routes
 const authRoute = require("./routes/authRoute")
 const sysRoute = require("./routes/sysRoute")
+const ifaceRoute = require("./routes/ifaceRoute")
 
 
 app.use("/api",authRoute)
 app.use("/sys",sysRoute)
+app.use("/iface",ifaceRoute)
+
 
 
 sessionCron()

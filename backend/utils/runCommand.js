@@ -2,10 +2,10 @@ const {spawn} = require("child_process")
 
 const runCommand = (command,args)=>{
     return new Promise((resolve,reject)=>{
-        const process = spawn(command.args)
+        const process = spawn(command,args)
 
         let stdout = ''
-        let stdout = ''
+        let stderr = ''
 
         process.stdout.on("data",(data)=>{
             stdout += data
@@ -23,14 +23,14 @@ const runCommand = (command,args)=>{
         process.on("close",(code)=>{
             if(code === 0){
                 resolve({
-                    status:200,
+                    status:true,
                     message:'Command executed succesfully!',
                     data:stdout
                 })
             }
             else{
                 resolve({
-                    status:500,
+                    status:false,
                     message:'Command execution failed!',
                     error:stderr
                 })

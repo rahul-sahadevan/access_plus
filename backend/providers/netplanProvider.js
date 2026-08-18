@@ -135,7 +135,7 @@ const netplanProvider = async()=>{
           await fs.copyFile(backupPath,`/etc/netplan/${netplanFile}`)
           await runCommands("netplan",["apply"])
           return {
-            status:false,
+            status:netplanGen.status,
             stage:"generate",
             message:"Netplan validation failed",
             error:netplanGen.stderr
@@ -150,7 +150,7 @@ const netplanProvider = async()=>{
           await fs.copyFile(backupPath,`/etc/netplan/${netplanFile}`)
           await runCommands("netplan",["apply"])
           return {
-            status:false,
+            status:netplanApply.status,
             stage:"apply",
             message:"Netplan apply failed",
             error:netplanApply.stderr
@@ -158,7 +158,7 @@ const netplanProvider = async()=>{
         }
 
         return {
-          status: 200,
+          status: true,
           message:"Netplan applied succesfully!"
         }
 

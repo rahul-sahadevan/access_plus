@@ -1,4 +1,5 @@
 const cpuProvider = require("../providers/cpuProvider")
+const diskProvider = require("../providers/diskProvider")
 const { osInfoProvider } = require("../providers/osInfo")
 
 
@@ -50,4 +51,33 @@ const cpuInfoService = async()=>{
 }
 
 
-module.exports = {sysInfoService,cpuInfoService}
+// service for disk info
+const diskInfoService = async()=>{
+    try{
+        const output = await diskProvider()
+        console.log(output)
+
+        if(!output){
+            return {
+                status:500,
+                message:"Failed to get CPU information!",
+                data:output
+            }
+        }
+
+        return {
+            status:200,
+            message:"Disk status retrieved succesfully!",
+            data:output
+        }
+
+
+    }
+    catch(error){
+        console.log(error.message)
+        return error.message
+    }
+}
+
+
+module.exports = {sysInfoService,cpuInfoService,diskInfoService}

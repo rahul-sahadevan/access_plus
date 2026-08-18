@@ -1,5 +1,6 @@
 const os = require("os")
 const fs = require("fs/promises")
+const runCommand = require("../utils/runCommand")
 
 
 
@@ -11,11 +12,12 @@ const interfaceProvider = async()=>{
 
         // interface traffic data
         const ifaceData = await fs.readFile("/proc/net/dev","utf-8")
-        const interfaces = ifaceData
+        const interfaces = await Promise.all(
+        ifaceData
         .trim()
         .slice(2)
         .split("\n")
-        .map(line =>{
+        .map(async (line) =>{
 
             const [name,stat] = line.split(":")
 
@@ -39,20 +41,27 @@ const interfaceProvider = async()=>{
             ] = stats.trim().split(/\s+/).map(Number);
 
             const ifaceIP = iface[name.trim()] ? iface[name.trim()][0].cidr : ""
+            const ifaceStatus =  await runCommand("ip",["link","show",name.trim()])
+
+            // rx and tx bytes into mbps
+            const rxMb = Number((rxBytes / (1024 * 1024)).toFixed(2))
+            const txMb = Number((txBytes / (1024 * 1024)).toFixed(2))
+        
 
             return {
                 interface: name.trim(),
                 interfaceIP: ifaceIP,
-                rxBytes,
+                iterfaceStatus: ifaceStatus,
+                rxMb,
                 rxPackets,
                 rxErrors,
                 rxDrops,
-                txBytes,
+                txMb,
                 txPackets,
                 txErrors,
                 txDrops,
             }
-        })
+        }))
 
         console.log(interfaces)
         return interfaces

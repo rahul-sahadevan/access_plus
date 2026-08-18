@@ -1,38 +1,17 @@
 const fs = require("fs/promises")
 const {spawn} = require("child_process")
+const runCommand = require("../utils/runCommand")
 
 
 const diskProvider  = async()=>{
     try{
 
-        return new Promise((resolve, reject) => {
-            const output = spawn("df",["-h"])
-    
-            let stdout = ""
-            let stderr = ""
-    
-            output.stdout.on("data",(data)=>{
-                stdout +=  data.toString()
-            })
-    
-            output.stderr.on("data",(data)=>{
-                stderr += data.toString()
-            })
-    
-            console.log(stdout)
-    
-            output.on("close",(code)=>{
-                if(code === 0){
-                    resolve(stdout)
-                }
-                else{
-                    reject(stderr)
-                }
-            })
-            
+        const diskInfo = await runCommand("df",["-h"])
+        if(!diskInfo.status){
+            return diskInfo.error
+        }
 
-            process.on("error",reject)
-        })
+        return diskInfo
 
     } 
     catch(error){

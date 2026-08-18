@@ -3,10 +3,37 @@ const rumCommand = require("../../utils/runCommand")
 const nginxProvider =  async()=>{
     try{
   
-        const nginxStatus = await runCommand("systemctl",["status","nginx"])
+        const nginxStatus = await runCommand("systemctl",["show","nginx","--no-page","--property=ActiveState,SubState,MainPID,LoadState,UnitFileState"])
         console.log(nginxStatus)
 
-        return nginxStatus
+        if(nginxStatus.status !== 200){
+            return {
+                status:false,
+                error:nginxStatus.stderr
+            }
+        }
+
+        const output;
+        nginxStatus.data
+        .trim()
+        .split("\n")
+        .forEach(line => {
+            const [key,...value] = line.split("=")
+            output[key] = value.join("=")
+        })
+
+        console.log(output)
+
+
+        return {
+            status:true,
+            service: "nginx",
+            loadState: output.LoadState,
+            activeState: output.ActiveState,
+            subState: output.SubState,
+            pid: Number(output.MainPID),
+            enabled: output.UnitFileState === "enabled"
+        }
     }
     catch(error){
         console.log(error.message)
