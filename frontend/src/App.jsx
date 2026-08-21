@@ -7,8 +7,10 @@ import Login from "./components/login/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import Navbar from "./components/navbar/Navbar";
 import AppLayout from "./AppLayout";
+import { useEffect } from "react";
 
 const App = ()=>{
+
     return(
         <div>
             <Routes>
