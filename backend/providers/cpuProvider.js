@@ -16,7 +16,7 @@ const cpuProvider = async()=>{
             const {user,nice,sys,irq,idle} = times
 
             // add the user,nice,sys,irq to fine the total usage
-            totalUsage += user + nice + sys + irq
+            totalUsage += user + nice + sys + irq + idle
             idleValue += idle
 
         })

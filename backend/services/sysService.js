@@ -33,7 +33,7 @@ const cpuInfoService = async()=>{
         const total = t2 - t1
         const idle = id2 - id1
 
-        const cpuPercent = (total - idle / total) * 100
+        const cpuPercent = (((total - idle) / total) * 100).toFixed(2)
 
         console.log(cpuPercent)
 
