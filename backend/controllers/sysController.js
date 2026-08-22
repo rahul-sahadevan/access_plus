@@ -6,6 +6,7 @@ const getSystemInfo = async(req,res)=>{
     try{
         // call provider functions to get the system info
         const osInfo = await sysInfoService()
+        console.log(osInfo,)
         if(!osInfo){
             return res.send({
                 status:500,

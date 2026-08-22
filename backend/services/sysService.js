@@ -10,6 +10,7 @@ const sysInfoService = async()=>{
         // call provider to get the system info
         const systemInfo =  await osInfoProvider()
         console.log(systemInfo)
+        return systemInfo
 
     }
     catch(error){

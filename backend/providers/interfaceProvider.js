@@ -1,6 +1,44 @@
 const os = require("os")
 const fs = require("fs/promises")
-const runCommand = require("../utils/runCommand")
+
+const runCommand = (interfaceName)=>{
+    return new Promise((resolve,reject)=>{
+        const process = spawn("ip",["link","show",interfaceName])
+
+        let stdout = ''
+        let stderr = ''
+
+        process.stdout.on("data",(data)=>{
+            stdout += data
+        })
+
+        process.stderr.on("data",(data)=>{
+            stderr += data
+        })
+
+        process.on("error",(error)=>{
+            reject(error)
+        })
+
+
+        process.on("close",(code)=>{
+            if(code !== 0){
+                reject({
+                    status:500,
+                    message:'Command execution failed!',
+                    data:stderr
+                })
+            }
+
+           const isUp = stdout.includes("state UP")
+           resolve({
+                interfaceName,
+                status: isUp ? "UP" : "DOWN"
+           })
+            
+        })
+    })
+}
 
 
 
@@ -15,8 +53,8 @@ const interfaceProvider = async()=>{
         const interfaces = await Promise.all(
         ifaceData
         .trim()
-        .slice(2)
         .split("\n")
+        .slice(2)
         .map(async (line) =>{
 
             const [name,stat] = line.split(":")
@@ -38,7 +76,7 @@ const interfaceProvider = async()=>{
                 txColls,
                 txCarrier,
                 txCompressed,
-            ] = stats.trim().split(/\s+/).map(Number);
+            ] = stat.trim().split(/\s+/).map(Number);
 
             const ifaceIP = iface[name.trim()] ? iface[name.trim()][0].cidr : ""
             const ifaceStatus =  await runCommand("ip",["link","show",name.trim()])
@@ -51,7 +89,7 @@ const interfaceProvider = async()=>{
             return {
                 interface: name.trim(),
                 interfaceIP: ifaceIP,
-                iterfaceStatus: ifaceStatus,
+                interfaceStatus: ifaceStatus,
                 rxMb,
                 rxPackets,
                 rxErrors,

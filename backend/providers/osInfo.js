@@ -31,13 +31,22 @@ const osInfoProvider = async()=>{
 
         // find uptime
         const upTime = os.uptime()
+        const days = Math.floor(uptime / 86400);
+        const hours = Math.floor((uptime % 86400) / 3600);
+        const minutes = Math.floor((uptime % 3600) / 60);
+        const seconds = Math.floor(uptime % 60);
 
         return {
             osRelease: info.PRETTY_NAME,
             totalMemGb,
-            freeMemDb,
+            freeMemGb,
             kernalVersion,
-            upTime
+            uptime:{
+                days,
+                hours,
+                minutes,
+                seconds
+            }
         }
 
     }
