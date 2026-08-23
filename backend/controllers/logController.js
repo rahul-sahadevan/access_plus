@@ -11,14 +11,14 @@ const getLogInformation = async(req,res)=>{
             return res.send({
                 status:400,
                 message:"Failed to get log!",
-                data:findLog.stderr
+                data:findLog
             })
         }
 
         return res.send({
             status:200,
             message:"Log retrieved successfully!",
-            data:findLog.stdout
+            data:findLog
         })
     }
     catch(error){

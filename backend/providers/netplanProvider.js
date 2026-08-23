@@ -4,45 +4,6 @@ const yaml = require("yaml")
 const {spawn, exec} = require("child_process")
 
 
-
-// create a json netplan file for testing
-const testNetplan = {
-  "network": {
-    "version": 2,
-    "ethernets": {
-      "eno1": {
-        "dhcp4": true
-      },
-      "eno2": {
-        "dhcp4": false,
-        "dhcp6": false,
-        "addresses": [
-          "192.168.7.41/24"
-        ],
-        "nameservers": {
-          "addresses": [
-            "8.8.8.8",
-            "8.8.4.4",
-            "1.1.1.1"
-          ]
-        },
-        "routes": [
-          {
-            "to": "default",
-            "via": "192.168.7.1"
-          }
-        ]
-      },
-      "eno3": {
-        "dhcp4": true
-      },
-      "eno4": {
-        "dhcp4": true
-      }
-    }
-  }
-}
-
 // function to run the commands
 const runCommands = (command,args)=>{
   return new Promise((resolve,reject)=>{
