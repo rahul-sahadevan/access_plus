@@ -1,5 +1,6 @@
 const os = require("os")
 const fs = require("fs/promises")
+const {spawn} = require("child_process")
 
 const runCommand = (interfaceName)=>{
     return new Promise((resolve,reject)=>{
@@ -79,7 +80,7 @@ const interfaceProvider = async()=>{
             ] = stat.trim().split(/\s+/).map(Number);
 
             const ifaceIP = iface[name.trim()] ? iface[name.trim()][0].cidr : ""
-            const ifaceStatus =  await runCommand("ip",["link","show",name.trim()])
+            const ifaceStatus =  await runCommand(name.trim())
 
             // rx and tx bytes into mbps
             const rxMb = Number((rxBytes / (1024 * 1024)).toFixed(2))

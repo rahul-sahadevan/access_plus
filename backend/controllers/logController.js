@@ -2,7 +2,7 @@
 const {systemLogService} = require("../services/logService")
 
 const getLogInformation = async(req,res)=>{
-    const param = req.param
+    const param = req.query.log
     console.log(param,"param for log")
     try{
        // check the which system log user requesting
@@ -15,11 +15,11 @@ const getLogInformation = async(req,res)=>{
             })
         }
 
-        return{
+        return res.send({
             status:200,
             message:"Log retrieved successfully!",
             data:findLog.stdout
-        }
+        })
     }
     catch(error){
         return res.send({

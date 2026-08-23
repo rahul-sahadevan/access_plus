@@ -1,4 +1,4 @@
-const rumCommand = require("../../utils/runCommand")
+const runCommand = require("../../utils/runCommand")
 
 const nginxStatusProvider =  async()=>{
     try{
@@ -6,14 +6,14 @@ const nginxStatusProvider =  async()=>{
         const nginxStatus = await runCommand("systemctl",["show","nginx","--no-page","--property=ActiveState,SubState,MainPID,LoadState,UnitFileState"])
         console.log(nginxStatus)
 
-        if(nginxStatus.status !== 200){
+        if(!nginxStatus.status){
             return {
                 status:false,
                 error:nginxStatus.stderr
             }
         }
 
-        let output;
+        let output = {}
         nginxStatus.data
         .trim()
         .split("\n")

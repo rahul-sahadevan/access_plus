@@ -6,6 +6,7 @@ const nginxStatusService  = async()=>{
     try{
 
         const nginxStatus =  await nginxStatusProvider()
+        console.log(nginxStatus)
         return nginxStatus
 
     }

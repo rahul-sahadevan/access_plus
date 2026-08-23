@@ -85,7 +85,7 @@ const runCommands = (command,args)=>{
 }
 
 
-const netplanProvider = async()=>{
+const netplanProvider = async({netplanDetails})=>{
     try{
 
       // read the netplan dir
@@ -120,7 +120,7 @@ const netplanProvider = async()=>{
         // get the json input from the user end
         // ip address,subnet,routes,dns - get all these form user end using form
         // convert the JSON file to yaml 
-        const newNetplan = yaml.stringify(testNetplan)
+        const newNetplan = yaml.stringify(netplanDetails)
         console.log(newNetplan,"modified netplan")
 
 

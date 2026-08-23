@@ -25,9 +25,17 @@ const getInterfaceInfo = async(req,res)=>{
     }
 }
 
-const getNetplanInfo = async()=>{
+const getNetplanInfo = async(req,res)=>{
+    const netplanDetails = req.body
     try{
-        const netplanInfo = await netplanService()
+        const netplanInfo = await netplanService({netplanDetails})
+        if(!netplanInfo.status){
+            return res.send({
+                status:500,
+                message:"Netplan configuration failed!",
+                data:netplanInfo
+            })
+        }
         return res.send({
             status:200,
             message:"Netplan applied successfully!",

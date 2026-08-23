@@ -38,7 +38,7 @@ const getNginxStatus =  async(req,res)=>{
 // nginx operations
 
 const performNginxOp = async (req,res)=>{
-    const operation = req.param
+    const operation = req.query.op
     try{
         if(operation === "reload"){
             await nginxReloadProvider()
@@ -62,7 +62,7 @@ const performNginxOp = async (req,res)=>{
             return res.send({
                 status:200,
                 message:"Nginx test done succesfully",
-                data:JSON.stringify(nginxTest)
+                data:nginxTest.err
             })
         }
 

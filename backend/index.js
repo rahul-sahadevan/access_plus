@@ -35,6 +35,7 @@ const authRoute = require("./routes/authRoute")
 const sysRoute = require("./routes/sysRoute")
 const ifaceRoute = require("./routes/ifaceRoute")
 const nginxRoute = require("./routes/nginxRoute")
+const logRoute = require("./routes/logRoute")
 const systemSocketCall = require('./jobs/wsocket')
 
 
@@ -42,6 +43,7 @@ app.use("/api",authRoute)
 app.use("/sys",sysRoute)
 app.use("/iface",ifaceRoute)
 app.use("/nginx",nginxRoute)
+app.use("/logs",logRoute)
 
 
 
