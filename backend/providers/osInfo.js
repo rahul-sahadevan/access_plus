@@ -41,12 +41,7 @@ const osInfoProvider = async()=>{
             totalMemGb,
             freeMemGb,
             kernalVersion,
-            uptime:{
-                days,
-                hours,
-                minutes,
-                seconds
-            }
+            uptime: days + "d" + " " + hours + "h" + " " + minutes + "min" + " " + seconds + "s"
         }
 
     }
