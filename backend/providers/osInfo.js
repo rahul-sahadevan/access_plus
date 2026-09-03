@@ -10,6 +10,7 @@ const osInfoProvider = async()=>{
 
         // 1 find os release
         const data = await fs.readFile("/etc/os-release",'utf8')
+        const hostName = os.hostname()
         const info = {}
 
         data.split("\n").forEach(line =>{
@@ -31,17 +32,18 @@ const osInfoProvider = async()=>{
 
         // find uptime
         const upTime = os.uptime()
-        const days = Math.floor(uptime / 86400);
-        const hours = Math.floor((uptime % 86400) / 3600);
-        const minutes = Math.floor((uptime % 3600) / 60);
-        const seconds = Math.floor(uptime % 60);
+        const days = Math.floor(upTime / 86400);
+        const hours = Math.floor((upTime % 86400) / 3600);
+        const minutes = Math.floor((upTime % 3600) / 60);
+        const seconds = Math.floor(upTime % 60);
 
         return {
             osRelease: info.PRETTY_NAME,
+            hostName,
             totalMemGb,
             freeMemGb,
             kernalVersion,
-            uptime: days + "d" + " " + hours + "h" + " " + minutes + "min" + " " + seconds + "s"
+            uptimeData: days + "d" + " " + hours + "h" + " " + minutes + "min" + " " + seconds + "s"
         }
 
     }

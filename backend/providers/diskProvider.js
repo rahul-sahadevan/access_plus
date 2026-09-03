@@ -6,7 +6,7 @@ const runCommand = require("../utils/runCommand")
 const diskProvider  = async()=>{
     try{
 
-        const diskInfo = await runCommand("df",["-h"])
+        const diskInfo = await runCommand("df",["-k"])
         if(!diskInfo.status){
             return diskInfo.error
         }
@@ -48,11 +48,9 @@ const diskProvider  = async()=>{
         console.log(`Free Space     : ${freeGB} GB`);
 
         return {
-            diskInformation:{
-                totalGB,
-                freeGB,
-                usedGB
-            }
+            totalGB,
+            freeGB,
+            usedGB
         }
 
     } 

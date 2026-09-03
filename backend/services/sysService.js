@@ -66,10 +66,19 @@ const diskInfoService = async()=>{
             }
         }
 
+        // disk usage percentage
+        const {totalGB,freeGB,usedGB} = output
+        const diskUsagePercent = ((usedGB/totalGB) * 100).toFixed(2)
+
         return {
             status:200,
             message:"Disk status retrieved succesfully!",
-            data:output
+            data:{
+                totalGB,
+                freeGB,
+                usedGB,
+                diskUsagePercent
+            }
         }
 
 

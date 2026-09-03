@@ -17,4 +17,11 @@ login_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 expired_at DEFAULT (CURRENT_TIMESTAMP + INTERVAL '1 hour')
 );
 
+-- netplan entries
+CREATE TABLE netplan_config(
+    id INTEGER PRIMARY KEY DEFAULT 1,
+    config JSONB NOT NULL,
+    update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+)
+
 

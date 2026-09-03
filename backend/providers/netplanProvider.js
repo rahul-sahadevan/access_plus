@@ -64,6 +64,7 @@ const netplanProvider = async({netplanDetails})=>{
             }
         }
         console.log(netplanFile,"yaml file for netplan")
+
         if(!netplanFile){
           throw new Error ("Not able to finf netplan file")
         }
@@ -129,5 +130,32 @@ const netplanProvider = async({netplanDetails})=>{
     }
 }
 
+const readNetplanProvider = async()=>{
+  try{
+          // read the netplan dir
+        const readYaml = await fs.readdir("/etc/netplan")
+        let netplanFile;
 
-module.exports = netplanProvider
+                // find the netplan file
+        for(let i=0;i<readYaml.length;i++){
+            if(readYaml[i].endsWith(".yaml")){
+                netplanFile = readYaml[i]
+                break
+            }
+        }
+
+        if(!netplanFile){
+          return "Not able to read netplan file"
+        }
+
+        return JSON.parse(netplanFile)
+
+
+  }
+  catch(error){
+    return error 
+  }
+}
+
+
+module.exports = {netplanProvider,readNetplanProvider}

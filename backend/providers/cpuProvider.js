@@ -8,6 +8,7 @@ const cpuProvider = async()=>{
         let cpuModel = data[0].model
         let totalUsage = 0
         let idleValue = 0
+        let cpuCore  = data.length
 
         data.forEach(cpu =>{
 
@@ -27,7 +28,8 @@ const cpuProvider = async()=>{
         return {
             cpuModel,
             totalUsage,
-            idleValue
+            idleValue,
+            cpuCore
         }
 
     }

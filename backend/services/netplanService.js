@@ -1,4 +1,4 @@
-const netplanProvider = require("../providers/netplanProvider")
+const {netplanProvider,readNetplanProvider} = require("../providers/netplanProvider")
 
 
 
@@ -11,6 +11,17 @@ const netplanService = async({netplanDetails})=>{
         return error
     }
 }
+const readNetplanService = async()=>{
+    try{
+        // call the provider
+        const netplan = await readNetplanProvider()
+        return netplan
+
+    }
+    catch(error){
+        return error
+    }
+}
 
 
-module.exports = netplanService
+module.exports = {netplanService,readNetplanService}

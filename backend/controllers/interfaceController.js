@@ -1,5 +1,5 @@
 const interfaceService = require("../services/interfaceService")
-const netplanService = require("../services/netplanService")
+const {netplanService,readNetplanService} = require("../services/netplanService")
 
 
 const getInterfaceInfo = async(req,res)=>{
@@ -51,5 +51,23 @@ const getNetplanInfo = async(req,res)=>{
     }
 }
 
+const readNetplanFile = async(req,res)=>{
+    try{   
+        const readNetplan = await readNetplanService()
+        return res.send({
+            status:200,
+            message:"Netplan file read successful",
+            data:readNetplan
+        })
+    }
+    catch(error){
+        return res.send({
+            status:500,
+            message:"Internal server error",
+            error:error.message
+        })
+    }
+}
 
-module.exports = {getInterfaceInfo,getNetplanInfo}
+
+module.exports = {getInterfaceInfo,getNetplanInfo,readNetplanFile}
