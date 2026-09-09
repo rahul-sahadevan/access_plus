@@ -148,7 +148,9 @@ const readNetplanProvider = async()=>{
           return "Not able to read netplan file"
         }
 
-        return JSON.parse(netplanFile)
+        const readNetplan = await fs.readFile(`/etc/netplan/${netplanFile}`,"utf8")
+
+        return yaml.parse(readNetplan)
 
 
   }

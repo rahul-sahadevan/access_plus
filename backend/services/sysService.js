@@ -24,7 +24,7 @@ const cpuInfoService = async()=>{
 
         const cpuInfo1 = await cpuProvider()
         console.log(cpuInfo1)
-        const {totalUsage:t1,idleValue:id1,cpuModel} = cpuInfo1
+        const {totalUsage:t1,idleValue:id1,cpuModel,cpuCore} = cpuInfo1
    
 
         await new Promise(resolve => setTimeout(resolve , 5000))
@@ -40,7 +40,8 @@ const cpuInfoService = async()=>{
 
         return {
             cpuPercent,
-            cpuModel
+            cpuModel,
+            cpuCore
         }
 
 

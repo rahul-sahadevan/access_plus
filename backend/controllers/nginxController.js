@@ -58,12 +58,10 @@ const performNginxOp = async (req,res)=>{
             return res.send(successResp)
         }
         if(operation === "test"){
+            console.log("enteing into nginx test")
             const nginxTest = await nginxTestProvider()
-            return res.send({
-                status:200,
-                message:"Nginx test done succesfully",
-                data:nginxTest.err
-            })
+            console.log(nginxTest)
+            return res.send(nginxTest)
         }
 
     }
