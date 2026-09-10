@@ -1,0 +1,614 @@
+/* =========================================================
+   MAIN PANEL
+========================================================= */
+
+.edit-netplan-div {
+    width: 100%;
+    min-height: 100vh;
+    background:
+        linear-gradient(
+            145deg,
+            #0d121a,
+            #070a0f
+        );
+    color: #e5e7eb;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.edit-netplan-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding: 26px 28px;
+
+    border-bottom: 1px solid #1c2531;
+}
+
+.edit-netplan-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #4b9cff;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+.edit-netplan-header h2 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.edit-netplan-header p {
+    margin: 7px 0 0;
+
+    color: #697588;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.edit-close-button {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #273242;
+    border-radius: 8px;
+
+    background: #0c1118;
+
+    color: #7d899a;
+
+    font-size: 21px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.edit-close-button:hover {
+    border-color: #ef4444;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    color: #f87171;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.edit-netplan-form {
+    padding: 8px 28px 30px;
+}
+
+
+/* =========================================================
+   FORM SECTION
+========================================================= */
+
+.form-section {
+    padding: 23px 0;
+
+    border-bottom: 1px solid #171f2a;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+}
+
+.form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 17px;
+
+    color: #cbd5e1;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+}
+
+.form-section-title span {
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #26384d;
+    border-radius: 6px;
+
+    background: #0b121c;
+
+    color: #4b9cff;
+
+    font-family: monospace;
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FORM GROUP
+========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group label {
+    color: #8e9bad;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.form-group label b {
+    margin-left: 3px;
+
+    color: #f87171;
+}
+
+.form-group input {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #263140;
+    border-radius: 7px;
+
+    outline: none;
+
+    background: #090e15;
+
+    color: #dbe3ed;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #3f4b5d;
+}
+
+.form-group input:focus {
+    border-color: #246bb0;
+
+    background: #0b121b;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 111, 190, 0.08);
+}
+
+.form-group input:disabled {
+    background: #0c1118;
+
+    color: #667387;
+
+    cursor: not-allowed;
+}
+
+.form-group small {
+    color: #515e70;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CHECKBOX / TOGGLE OPTION
+========================================================= */
+
+.toggle-option {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 12px;
+
+    border: 1px solid #202b39;
+    border-radius: 8px;
+
+    background: rgba(10, 15, 22, 0.7);
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.toggle-option:hover {
+    border-color: #2c4057;
+
+    background: #0c131d;
+}
+
+.toggle-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.custom-checkbox {
+    flex-shrink: 0;
+
+    width: 17px;
+    height: 17px;
+
+    margin-top: 1px;
+
+    border: 1px solid #3a4656;
+    border-radius: 4px;
+
+    background: #080d13;
+
+    transition: all 0.2s ease;
+}
+
+.toggle-option input:checked + .custom-checkbox {
+    border-color: #1683ff;
+
+    background: #0877ef;
+
+    box-shadow:
+        0 0 10px rgba(0, 119, 255, 0.25);
+}
+
+.toggle-option input:checked + .custom-checkbox::after {
+    content: "✓";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100%;
+
+    color: white;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.toggle-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.toggle-content strong {
+    color: #cbd5e1;
+
+    font-size: 12px;
+}
+
+.toggle-content small {
+    color: #596577;
+
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   CONDITIONAL FIELDS
+========================================================= */
+
+.conditional-field {
+    margin-top: 12px;
+
+    padding: 13px;
+
+    border-left: 2px solid #155eaa;
+
+    background: rgba(10, 24, 40, 0.45);
+
+    border-radius: 0 7px 7px 0;
+}
+
+
+/* =========================================================
+   ROUTES
+========================================================= */
+
+.routes-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-top: 13px;
+}
+
+.route-row {
+    display: grid;
+
+    grid-template-columns:
+        28px
+        minmax(0, 1fr)
+        minmax(0, 1fr)
+        72px;
+
+    align-items: end;
+
+    gap: 9px;
+
+    padding: 11px;
+
+    border: 1px solid #202b38;
+    border-radius: 8px;
+
+    background: #090e15;
+}
+
+.route-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 32px;
+
+    margin-bottom: 1px;
+
+    color: #526174;
+
+    font-family: monospace;
+    font-size: 9px;
+}
+
+.route-field {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.route-field label {
+    color: #697789;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.6px;
+}
+
+.route-field input {
+    width: 100%;
+    height: 34px;
+
+    padding: 0 9px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #263140;
+    border-radius: 6px;
+
+    outline: none;
+
+    background: #070b11;
+
+    color: #cbd5e1;
+
+    font-family: monospace;
+    font-size: 10px;
+}
+
+.route-field input:focus {
+    border-color: #246bb0;
+
+    box-shadow:
+        0 0 0 2px rgba(37, 111, 190, 0.08);
+}
+
+
+/* =========================================================
+   ROUTE ACTIONS
+========================================================= */
+
+.route-actions {
+    display: flex;
+
+    gap: 5px;
+
+    height: 34px;
+}
+
+.route-add-button,
+.route-remove-button {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 6px;
+
+    font-size: 17px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.route-add-button {
+    border: 1px solid #245b91;
+
+    background: rgba(17, 74, 128, 0.18);
+
+    color: #60a5fa;
+}
+
+.route-add-button:hover {
+    background: rgba(17, 74, 128, 0.35);
+
+    border-color: #347bbd;
+}
+
+.route-remove-button {
+    border: 1px solid #593039;
+
+    background: rgba(127, 29, 29, 0.12);
+
+    color: #f87171;
+}
+
+.route-remove-button:hover:not(:disabled) {
+    background: rgba(127, 29, 29, 0.25);
+
+    border-color: #7f3944;
+}
+
+.route-remove-button:disabled {
+    opacity: 0.3;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.edit-netplan-footer {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding-top: 23px;
+}
+
+.cancel-netplan-button,
+.update-netplan-button {
+    height: 40px;
+
+    padding: 0 16px;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.cancel-netplan-button {
+    border: 1px solid #283241;
+
+    background: #0b1017;
+
+    color: #7f8b9d;
+}
+
+.cancel-netplan-button:hover {
+    background: #111722;
+
+    color: #cbd5e1;
+}
+
+.update-netplan-button {
+    border: 1px solid #1683ff;
+
+    background: linear-gradient(
+        135deg,
+        #0877ef,
+        #075bc2
+    );
+
+    color: white;
+
+    box-shadow:
+        0 0 18px rgba(0, 119, 255, 0.14);
+}
+
+.update-netplan-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 0 24px rgba(0, 119, 255, 0.28);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .edit-netplan-header {
+        padding: 20px;
+    }
+
+    .edit-netplan-form {
+        padding: 5px 20px 25px;
+    }
+
+    .route-row {
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .route-number {
+        display: none;
+    }
+
+    .route-actions {
+        grid-column: 1 / -1;
+        justify-content: flex-end;
+    }
+
+    .edit-netplan-footer {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-netplan-button,
+    .update-netplan-button {
+        width: 100%;
+    }
+
+}

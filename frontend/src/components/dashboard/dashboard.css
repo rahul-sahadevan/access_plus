@@ -1,172 +1,457 @@
+/* =========================================
+   Dashboard
+========================================= */
+
 .dashboard {
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
+    position: relative;
+
+    min-height: calc(100vh - 72px);
+
+    padding: 34px 42px;
+
+    color: #e5e7eb;
+
+    background:
+        radial-gradient(
+            circle at 85% 5%,
+            rgba(37, 99, 235, 0.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 15% 95%,
+            rgba(59, 130, 246, 0.07),
+            transparent 30%
+        ),
+        #070d18;
+
+    overflow: hidden;
 }
 
 
-/* Header */
+/* subtle background glow */
+
+.dashboard::before {
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: 15%;
+    right: -220px;
+
+    background: rgba(37, 99, 235, 0.07);
+
+    filter: blur(100px);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   Dashboard Header
+========================================= */
 
 .dashboard-header {
-    margin-bottom: 28px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
 }
 
 .dashboard-header h1 {
     margin: 0;
 
-    font-size: 26px;
-    font-weight: 600;
+    color: #f8fafc;
 
-    color: #111827;
+    font-size: 32px;
+    font-weight: 700;
+
+    letter-spacing: -0.8px;
+
+    text-shadow:
+        0 0 20px rgba(59, 130, 246, 0.12);
 }
 
 .dashboard-header p {
-    margin: 6px 0 0;
+    margin: 8px 0 0;
+
+    color: #7f8da3;
 
     font-size: 14px;
-
-    color: #6b7280;
 }
 
 
-/* Resource Cards */
+/* =========================================
+   Resource Grid
+========================================= */
 
 .resource-grid {
+    position: relative;
+
     display: grid;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 
     gap: 20px;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
+
+
+/* =========================================
+   Resource Cards
+========================================= */
 
 .resource-card {
-    background: #ffffff;
+    position: relative;
 
-    border: 1px solid #e5e7eb;
+    padding: 25px 28px;
 
-    border-radius: 12px;
+    overflow: hidden;
 
-    padding: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 28, 48, 0.95),
+            rgba(9, 17, 30, 0.95)
+        );
 
-    box-sizing: border-box;
+    border: 1px solid rgba(100, 116, 139, 0.20);
+
+    border-radius: 16px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 8px 30px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
+
+
+/* glowing top border */
+
+.resource-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #2563eb,
+        #60a5fa,
+        transparent
+    );
+
+    opacity: 0.35;
+
+    transition: opacity 0.3s ease;
+}
+
+
+.resource-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(59, 130, 246, 0.35);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 14px 35px rgba(0, 0, 0, 0.35),
+        0 0 25px rgba(37, 99, 235, 0.06);
+}
+
+.resource-card:hover::before {
+    opacity: 1;
+}
+
+
+/* =========================================
+   Card Top
+========================================= */
 
 .card-top {
     display: flex;
-    justify-content: space-between;
+
     align-items: center;
+    justify-content: space-between;
 }
 
 .card-title {
-    font-size: 14px;
-    font-weight: 500;
+    color: #aeb9ca;
 
-    color: #6b7280;
+    font-size: 15px;
+    font-weight: 600;
 }
+
+
+/* =========================================
+   Card Icon
+========================================= */
 
 .card-icon {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 50px;
+    height: 31px;
+
+    padding: 0 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(37, 99, 235, 0.16),
+            rgba(37, 99, 235, 0.05)
+        );
+
+    border: 1px solid rgba(59, 130, 246, 0.18);
+
+    border-radius: 8px;
+
+    color: #60a5fa;
+
     font-size: 10px;
-    font-weight: 600;
+    font-weight: 800;
 
-    color: #6b7280;
+    letter-spacing: 0.6px;
 
-    background: #f3f4f6;
-
-    padding: 6px 8px;
-
-    border-radius: 6px;
+    box-shadow:
+        0 0 15px rgba(37, 99, 235, 0.05);
 }
 
+
+/* =========================================
+   Card Value
+========================================= */
+
 .card-value {
-    margin-top: 18px;
+    margin-top: 20px;
 
-    font-size: 28px;
-    font-weight: 600;
+    color: #f8fafc;
 
-    color: #111827;
+    font-size: 36px;
+    font-weight: 700;
+
+    line-height: 1.15;
+
+    letter-spacing: -1.5px;
+
+    text-shadow:
+        0 0 18px rgba(255, 255, 255, 0.04);
 }
 
 .value-unit {
-    font-size: 14px;
+    margin-left: 5px;
 
-    color: #6b7280;
+    color: #7f8da3;
 
-    font-weight: 400;
-}
+    font-size: 16px;
+    font-weight: 500;
 
-.uptime {
-    font-size: 22px;
-}
-
-
-/* Progress */
-
-.progress {
-    height: 6px;
-
-    background: #e5e7eb;
-
-    border-radius: 10px;
-
-    margin-top: 16px;
-
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-
-    background: #2563eb;
-
-    border-radius: 10px;
-
-    transition: width 0.3s ease;
+    letter-spacing: 0;
 }
 
 .card-subtitle {
     display: block;
 
-    margin-top: 10px;
+    margin-top: 11px;
+
+    color: #718096;
 
     font-size: 12px;
-
-    color: #9ca3af;
 }
 
 
-/* Middle Grid */
+/* =========================================
+   Progress Bar
+========================================= */
+
+.progress {
+    position: relative;
+
+    width: 100%;
+    height: 8px;
+
+    margin-top: 21px;
+
+    overflow: hidden;
+
+    background: #1b2738;
+
+    border-radius: 20px;
+
+    box-shadow:
+        inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.progress-bar {
+    position: relative;
+
+    height: 100%;
+
+    min-width: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #2563eb,
+            #3b82f6,
+            #60a5fa
+        );
+
+    border-radius: inherit;
+
+    box-shadow:
+        0 0 12px rgba(37, 99, 235, 0.55);
+
+    transition:
+        width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* moving shine */
+
+.progress-bar::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 45%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.45),
+        transparent
+    );
+
+    animation: progressShine 3s infinite;
+}
+
+@keyframes progressShine {
+
+    0% {
+        left: -100%;
+    }
+
+    60% {
+        left: 130%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
+
+
+/* =========================================
+   Middle Dashboard
+========================================= */
 
 .dashboard-grid {
+    position: relative;
+
     display: grid;
 
-    grid-template-columns:
-        1.4fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
     gap: 20px;
 
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 
-/* Common Card */
+/* =========================================
+   Dashboard Cards
+========================================= */
 
 .dashboard-card {
-    background: #ffffff;
+    position: relative;
 
-    border: 1px solid #e5e7eb;
+    padding: 25px 28px;
 
-    border-radius: 12px;
+    overflow: hidden;
 
-    padding: 22px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17, 28, 48, 0.95),
+            rgba(9, 17, 30, 0.95)
+        );
 
-    box-sizing: border-box;
+    border: 1px solid rgba(100, 116, 139, 0.20);
+
+    border-radius: 16px;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.025),
+        0 8px 30px rgba(0, 0, 0, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
 }
+
+.dashboard-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #2563eb,
+        #60a5fa,
+        transparent
+    );
+
+    opacity: 0.25;
+}
+
+.dashboard-card:hover {
+    border-color: rgba(59, 130, 246, 0.30);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 12px 30px rgba(0, 0, 0, 0.32);
+}
+
+
+/* =========================================
+   Section Header
+========================================= */
 
 .section-header {
     display: flex;
+
+    align-items: center;
     justify-content: space-between;
 
     margin-bottom: 20px;
@@ -175,28 +460,29 @@
 .section-header h2 {
     margin: 0;
 
-    font-size: 17px;
-    font-weight: 600;
+    color: #f1f5f9;
 
-    color: #111827;
+    font-size: 17px;
+    font-weight: 650;
 }
 
 .section-header p {
     margin: 5px 0 0;
 
-    font-size: 12px;
+    color: #718096;
 
-    color: #9ca3af;
+    font-size: 12px;
 }
 
 
-/* Network */
+/* =========================================
+   Network
+========================================= */
 
 .network-list {
     display: flex;
-    flex-direction: column;
 
-    gap: 4px;
+    flex-direction: column;
 }
 
 .network-row {
@@ -205,67 +491,133 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 13px 10px;
+    padding: 14px 0;
 
-    border-radius: 8px;
+    border-bottom: 1px solid rgba(100, 116, 139, 0.12);
+
+    transition:
+        padding 0.2s ease,
+        background 0.2s ease;
+}
+
+.network-row:last-child {
+    border-bottom: none;
 }
 
 .network-row:hover {
-    background: #f9fafb;
+    padding-left: 6px;
+    padding-right: 6px;
+
+    background: rgba(37, 99, 235, 0.025);
 }
 
 .interface-name {
     display: flex;
+
     align-items: center;
 
     gap: 10px;
 
-    font-size: 14px;
-    font-weight: 500;
+    color: #cbd5e1;
 
-    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
 }
 
+
+/* live network dot */
+
 .status-dot {
-    width: 8px;
-    height: 8px;
+    position: relative;
+
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
 
     background: #22c55e;
 
+    box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.75);
+}
+
+.status-dot::after {
+    content: "";
+
+    position: absolute;
+
+    inset: -4px;
+
+    border: 1px solid #22c55e;
+
     border-radius: 50%;
+
+    opacity: 0;
+
+    animation: networkPulse 2s infinite;
+}
+
+@keyframes networkPulse {
+
+    0% {
+        transform: scale(0.6);
+        opacity: 0.7;
+    }
+
+    70% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
 }
 
 .traffic-value {
     display: flex;
 
-    gap: 25px;
+    gap: 20px;
 
-    font-size: 13px;
+    color: #8da2bd;
 
-    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.traffic-value span:first-child {
+    color: #60a5fa;
+}
+
+.traffic-value span:last-child {
+    color: #34d399;
 }
 
 
-/* Server information */
+/* =========================================
+   Server Information
+========================================= */
 
 .server-info {
     display: flex;
-    flex-direction: column;
 
-    gap: 4px;
+    flex-direction: column;
 }
 
 .info-row {
     display: flex;
 
-    justify-content: space-between;
     align-items: center;
-
-    padding: 10px 0;
-
-    border-bottom: 1px solid #f3f4f6;
+    justify-content: space-between;
 
     gap: 20px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid rgba(100, 116, 139, 0.12);
 }
 
 .info-row:last-child {
@@ -273,33 +625,43 @@
 }
 
 .info-row span {
-    font-size: 13px;
+    color: #718096;
 
-    color: #6b7280;
+    font-size: 12px;
 }
 
 .info-row strong {
-    font-size: 13px;
+    max-width: 60%;
 
-    color: #111827;
+    overflow: hidden;
+
+    color: #dbe4f0;
+
+    font-size: 12px;
+    font-weight: 600;
 
     text-align: right;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 }
 
 
-/* Services */
+/* =========================================
+   Services
+========================================= */
 
 .services-card {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .services-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    gap: 15px;
+    gap: 12px;
 }
 
 .service-item {
@@ -308,11 +670,36 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 15px;
+    padding: 15px 16px;
 
-    border: 1px solid #e5e7eb;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18, 30, 49, 0.75),
+            rgba(10, 18, 31, 0.75)
+        );
 
-    border-radius: 10px;
+    border: 1px solid rgba(100, 116, 139, 0.14);
+
+    border-radius: 11px;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.service-item:hover {
+    transform: translateX(3px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(21, 36, 60, 0.9),
+            rgba(11, 21, 36, 0.9)
+        );
+
+    border-color: rgba(59, 130, 246, 0.28);
 }
 
 .service-info {
@@ -320,78 +707,197 @@
 
     align-items: center;
 
-    gap: 10px;
+    gap: 12px;
 }
 
-.service-info div {
+.service-info > div {
     display: flex;
+
     flex-direction: column;
 
-    gap: 3px;
+    gap: 5px;
 }
 
 .service-info strong {
-    font-size: 14px;
+    color: #dbe4f0;
 
-    color: #111827;
+    font-size: 13px;
 }
 
-.service-info span {
-    font-size: 12px;
 
-    color: #22c55e;
-}
+/* =========================================
+   Service Dots
+========================================= */
 
-.service-dot {
-    width: 9px;
-    height: 9px;
+.service-dot-grn,
+.service-dot-red {
+    position: relative;
 
-    background: #22c55e;
+    width: 8px;
+    height: 8px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 }
 
-.service-status {
-    font-size: 12px;
+.service-dot-grn {
+    background: #22c55e;
 
-    font-weight: 500;
+    box-shadow:
+        0 0 10px rgba(34, 197, 94, 0.8);
+}
 
-    color: #16a34a;
+.service-dot-red {
+    background: #ef4444;
+
+    box-shadow:
+        0 0 10px rgba(239, 68, 68, 0.7);
 }
 
 
-/* Responsive */
+/* =========================================
+   Service Sub State
+========================================= */
+
+.service-substate-grn,
+.service-substate-red {
+    display: inline-flex;
+
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.service-substate-grn {
+    color: #4ade80;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border: 1px solid rgba(34, 197, 94, 0.12);
+}
+
+.service-substate-red {
+    color: #f87171;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border: 1px solid rgba(239, 68, 68, 0.12);
+}
+
+
+/* =========================================
+   Service Status
+========================================= */
+
+.service-status-grn,
+.service-status-red {
+    padding: 6px 10px;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+}
+
+.service-status-grn {
+    color: #4ade80;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border: 1px solid rgba(34, 197, 94, 0.12);
+
+    box-shadow:
+        0 0 12px rgba(34, 197, 94, 0.04);
+}
+
+.service-status-red {
+    color: #f87171;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border: 1px solid rgba(239, 68, 68, 0.12);
+}
+
+
+/* =========================================
+   Uptime
+========================================= */
+
+.card-value.uptime {
+    color: #fbbf24;
+
+    text-shadow:
+        0 0 20px rgba(251, 191, 36, 0.12);
+}
+
+
+/* =========================================
+   Responsive
+========================================= */
 
 @media (max-width: 1100px) {
 
-    .resource-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+    .dashboard {
+        padding: 28px;
     }
 
+    .resource-grid,
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
 
     .services-grid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 }
 
 
 @media (max-width: 600px) {
 
-    .main-content {
+    .dashboard {
+        padding: 20px 15px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 26px;
+    }
+
+    .resource-card,
+    .dashboard-card {
         padding: 20px;
     }
 
-    .resource-grid {
-        grid-template-columns: 1fr;
+    .card-value {
+        font-size: 30px;
     }
 
     .traffic-value {
         flex-direction: column;
-        gap: 3px;
+
+        gap: 4px;
+    }
+
+    .info-row {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+    .info-row strong {
+        max-width: 100%;
+
+        text-align: left;
     }
 }

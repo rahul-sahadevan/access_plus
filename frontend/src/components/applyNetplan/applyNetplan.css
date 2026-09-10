@@ -1,0 +1,274 @@
+.apply-netplan-overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    backdrop-filter: blur(8px);
+}
+
+
+.apply-netplan-modal {
+    width: min(900px, 95vw);
+    max-height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #11161d;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.65);
+
+    color: #ffffff;
+}
+
+
+/* Header */
+
+.apply-netplan-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding: 22px 24px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.apply-netplan-header h2 {
+    margin: 0;
+
+    font-size: 19px;
+    font-weight: 600;
+}
+
+
+.apply-netplan-header p {
+    margin: 6px 0 0;
+
+    color: #8b949e;
+
+    font-size: 13px;
+}
+
+
+/* Close */
+
+.apply-netplan-close {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: #9ca3af;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.apply-netplan-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+
+    color: #ffffff;
+}
+
+
+/* YAML */
+
+.apply-netplan-content {
+    margin: 20px 24px;
+
+    max-height: 55vh;
+
+    overflow: auto;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+
+    background: #080b0f;
+}
+
+
+.apply-netplan-content pre {
+    margin: 0;
+
+    padding: 20px;
+
+    color: #d6deeb;
+
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    white-space: pre;
+
+    tab-size: 2;
+}
+
+
+/* Actions */
+
+.apply-netplan-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding: 18px 24px;
+
+    border-top:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* Cancel */
+
+.apply-netplan-cancel {
+    padding: 10px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    color: #c9d1d9;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.apply-netplan-cancel:hover {
+    background: rgba(255, 255, 255, 0.09);
+
+    color: #ffffff;
+}
+
+
+/* Confirm */
+
+.apply-netplan-confirm {
+    padding: 10px 18px;
+
+    border: 1px solid rgba(34, 197, 94, 0.35);
+
+    border-radius: 8px;
+
+    background: linear-gradient(
+        135deg,
+        #16a34a,
+        #15803d
+    );
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    box-shadow:
+        0 5px 16px rgba(0, 0, 0, 0.25);
+}
+
+
+.apply-netplan-confirm:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Scrollbar */
+
+.apply-netplan-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.apply-netplan-content::-webkit-scrollbar-track {
+    background: #080b0f;
+}
+
+.apply-netplan-content::-webkit-scrollbar-thumb {
+    background: #30363d;
+
+    border-radius: 10px;
+}
+
+.apply-netplan-content::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .apply-netplan-overlay {
+        padding: 15px;
+    }
+
+    .apply-netplan-modal {
+        width: 100%;
+        max-height: 94vh;
+    }
+
+    .apply-netplan-header {
+        padding: 18px;
+    }
+
+    .apply-netplan-content {
+        margin: 15px;
+        max-height: 60vh;
+    }
+
+    .apply-netplan-content pre {
+        padding: 15px;
+        font-size: 12px;
+    }
+
+    .apply-netplan-actions {
+        padding: 15px;
+    }
+}

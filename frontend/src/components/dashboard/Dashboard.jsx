@@ -1,76 +1,58 @@
 import React from "react";
 import "./dashboard.css";
+import { useEffect ,useState} from "react";
+import socketConnection from "../socket";
+import axios from "axios";
+import systemService from "../apiCallFun"
+
 
 const Dashboard = () => {
 
-    // Dummy data for now
-    const systemData = {
-        cpu: 24.5,
+    const [serverData,setServerData] = useState({})
+    const [ramPercent,setRamPercent] = useState(0)
+    const [cpuData,setCpuData] = useState({})
+    const [diskUsage,setDiskUsage] = useState({})
+    const [networkStatus,setNetworkStatus] = useState([])
+    const [serviceData,setServiceData] = useState([])
 
-        memory: {
-            used: 3.2,
-            total: 8,
-            percentage: 40
-        },
 
-        disk: {
-            used: 67,
-            total: 100,
-            percentage: 67
-        },
+    const getApiCallFun = async()=>{
+        try{
+            // os information function
+            const osData = await systemService.osInformation()
+            setServerData(osData)
 
-        uptime: "12d 04h 32m",
+            // ram percent calculation
+            const ramPercentOutput = systemService.ramPercentCal(osData)
+            setRamPercent(ramPercentOutput)
 
-        server: {
-            os: "Ubuntu 24.04 LTS",
-            hostname: "nect",
-            cpu: "Intel(R) Celeron(R) J3455",
-            cores: 4,
-            ram: "8 GB"
+            // cpu information
+            const cpuInfo = await systemService.cpuInfomation()
+            console.log(cpuInfo)
+            setCpuData(cpuInfo)
+
+            // disk information
+            const diskInfo = await systemService.diskInformation()
+            console.log(diskInfo)
+            setDiskUsage(diskInfo)
+
+            // interface information
+            const ifaceInfo = await systemService.getNetorkStatus()
+            setNetworkStatus(ifaceInfo.data)
+
+            // nginx information
+            const nginxInfo = await systemService.getNginxStatus()
+            setServiceData([...serviceData,nginxInfo])
+            
+
         }
-    };
-
-    const networkData = [
-        {
-            name: "eno1",
-            rx: "41.8 GB",
-            tx: "141.4 GB"
-        },
-        {
-            name: "eno2",
-            rx: "31.9 GB",
-            tx: "929 MB"
-        },
-        {
-            name: "eno3",
-            rx: "21.9 MB",
-            tx: "437 KB"
-        },
-        {
-            name: "eno4",
-            rx: "21.4 GB",
-            tx: "252 MB"
+        catch(error){
+            console.log(error.message)
         }
-    ];
-
-    const services = [
-        {
-            name: "Nginx",
-            status: "Running"
-        },
-        {
-            name: "PostgreSQL",
-            status: "Running"
-        },
-        {
-            name: "Access Plus API",
-            status: "Running"
-        }
-    ];
-
-    // //////////////////////////////////////////////////////////////
-
-    
+    }
+    useEffect(()=>{
+        getApiCallFun()
+    },[])
 
 
     return (
@@ -110,14 +92,14 @@ const Dashboard = () => {
                     </div>
 
                     <div className="card-value">
-                        {systemData.cpu}%
+                        {cpuData.cpuPercent}%
                     </div>
 
                     <div className="progress">
                         <div
                             className="progress-bar"
                             style={{
-                                width: `${systemData.cpu}%`
+                                width: `${cpuData.cpuPercent}%`
                             }}
                         />
                     </div>
@@ -144,9 +126,9 @@ const Dashboard = () => {
                     </div>
 
                     <div className="card-value">
-                        {systemData.memory.used}
+                        {serverData.freeMemGb}
                         <span className="value-unit">
-                            / {systemData.memory.total} GB
+                            / {serverData.totalMemGb} GB
                         </span>
                     </div>
 
@@ -154,13 +136,13 @@ const Dashboard = () => {
                         <div
                             className="progress-bar"
                             style={{
-                                width: `${systemData.memory.percentage}%`
+                                width: `${ramPercent}%`
                             }}
                         />
                     </div>
 
                     <span className="card-subtitle">
-                        {systemData.memory.percentage}% utilized
+                        {ramPercent}% utilized
                     </span>
 
                 </div>
@@ -181,20 +163,20 @@ const Dashboard = () => {
                     </div>
 
                     <div className="card-value">
-                        {systemData.disk.percentage}%
+                        {diskUsage.diskUsagePercent}%
                     </div>
 
                     <div className="progress">
                         <div
                             className="progress-bar"
                             style={{
-                                width: `${systemData.disk.percentage}%`
+                                width: `${diskUsage.diskPercentage}%`
                             }}
                         />
                     </div>
 
                     <span className="card-subtitle">
-                        {systemData.disk.used} GB used
+                        {diskUsage.usedGB} GB used
                     </span>
 
                 </div>
@@ -210,12 +192,12 @@ const Dashboard = () => {
                         </span>
 
                         <span className="card-icon">
-                            UP
+                            {serverData.uptimeData === "" ? "DOWN" : "UP"}
                         </span>
                     </div>
 
                     <div className="card-value uptime">
-                        {systemData.uptime}
+                        {serverData.uptimeData}
                     </div>
 
                     <span className="card-subtitle">
@@ -250,25 +232,25 @@ const Dashboard = () => {
 
                     <div className="network-list">
 
-                        {networkData.map((network) => (
+                        {networkStatus.map((network) => (
 
                             <div
                                 className="network-row"
-                                key={network.name}
+                                key={network.interface}
                             >
 
                                 <div className="interface-name">
                                     <span className="status-dot" />
-                                    {network.name}
+                                    {network.interface}
                                 </div>
 
                                 <div className="traffic-value">
                                     <span>
-                                        ↓ {network.rx}
+                                        ↓ {network.rxMb}mb
                                     </span>
 
                                     <span>
-                                        ↑ {network.tx}
+                                        ↑ {network.txMb}mb
                                     </span>
                                 </div>
 
@@ -302,27 +284,27 @@ const Dashboard = () => {
 
                         <div className="info-row">
                             <span>Operating System</span>
-                            <strong>{systemData.server.os}</strong>
+                            <strong>{serverData.osRelease}</strong>
                         </div>
 
                         <div className="info-row">
                             <span>Hostname</span>
-                            <strong>{systemData.server.hostname}</strong>
+                            <strong>{serverData.hostName}</strong>
                         </div>
 
                         <div className="info-row">
                             <span>CPU</span>
-                            <strong>{systemData.server.cpu}</strong>
+                            <strong>{cpuData.cpuModel}</strong>
                         </div>
 
                         <div className="info-row">
                             <span>CPU Cores</span>
-                            <strong>{systemData.server.cores}</strong>
+                            <strong>{cpuData.cpuCore}</strong>
                         </div>
 
                         <div className="info-row">
                             <span>Total RAM</span>
-                            <strong>{systemData.server.ram}</strong>
+                            <strong>{serverData.totalMemGb} GB</strong>
                         </div>
 
                     </div>
@@ -351,31 +333,32 @@ const Dashboard = () => {
 
                 <div className="services-grid">
 
-                    {services.map((service) => (
+                    {serviceData.map((service) => (
 
                         <div
                             className="service-item"
-                            key={service.name}
+                            key={service.service}
                         >
 
                             <div className="service-info">
 
-                                <span className="service-dot" />
+                                <span className={service.subState === "running" ? 'service-dot-grn':'service-dot-red'} />
 
                                 <div>
                                     <strong>
-                                        {service.name}
+                                        {service.service}
                                     </strong>
 
-                                    <span>
-                                        {service.status}
+                                    <span className= {service.subState === "running" && service.enabled ? "service-substate-grn" : "service-substate-red"}>
+                                        {service.subState},
+                                        {service.enabled ? "enabled" : "disabled"}
                                     </span>
                                 </div>
 
                             </div>
 
-                            <span className="service-status">
-                                Running
+                            <span className={service.subState === "running" ? 'service-status-grn':'service-status-red'}>
+                               {service.subState === "running" ? "Running" : "Not Running"}
                             </span>
 
                         </div>

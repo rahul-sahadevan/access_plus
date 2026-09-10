@@ -1,6 +1,6 @@
 import "./navbar.css";
 
-const Navbar = ({ onMenuClick }) => {
+const Navbar = ({ onMenuClick,page}) => {
 
     return (
         <nav className="navbar">
@@ -15,7 +15,7 @@ const Navbar = ({ onMenuClick }) => {
                 </button>
 
                 <h2 className="page-title">
-                    Dashboard
+                    {page}
                 </h2>
 
             </div>

@@ -7,6 +7,7 @@ import "./App.css"
 
 const AppLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [page,setPage] = useState("Dashboard")
 
     const toggleSidebar = () => {
         setSidebarOpen(prev => !prev);
@@ -15,11 +16,11 @@ const AppLayout = () => {
     return (
         <div className={`app-layout ${sidebarOpen ? "sidebar-open" : "sidebar-closed"}`}>
 
-            <Sidebar isOpen={sidebarOpen} />
+            <Sidebar isOpen={sidebarOpen} setPage={setPage}/>
 
             <div className="app-main">
 
-                <Navbar onMenuClick={toggleSidebar} />
+                <Navbar onMenuClick={toggleSidebar} page={page}/>
 
                 <main className="main-content">
                     <Outlet />

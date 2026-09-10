@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 import "./sidebar.css";
+import { useState } from "react";
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen,setPage }) => {
+
+
 
     return (
         <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
@@ -12,7 +15,7 @@ const Sidebar = ({ isOpen }) => {
 
             <nav className="sidebar-nav">
 
-                <NavLink to="/dashboard">
+                <NavLink to="/dashboard" onClick={()=> setPage("Dashboard")}>
                     Dashboard
                 </NavLink>
 
@@ -20,11 +23,11 @@ const Sidebar = ({ isOpen }) => {
                     Network
                 </div>
 
-                <NavLink to="/network">
+                <NavLink to="/network" onClick={()=> setPage("Network")}>
                     Interfaces
                 </NavLink>
 
-                <NavLink to="/netplan">
+                <NavLink to="/netplan" onClick={()=> setPage("Network")}>
                     Netplan
                 </NavLink>
 
@@ -32,7 +35,7 @@ const Sidebar = ({ isOpen }) => {
                     Services
                 </div>
 
-                <NavLink to="/nginx">
+                <NavLink to="/nginx" onClick={()=> setPage("Services")}>
                     Nginx
                 </NavLink>
 
@@ -40,17 +43,17 @@ const Sidebar = ({ isOpen }) => {
                     Diagnostics
                 </div>
 
-                <NavLink to="/dmesg">
-                    dmesg
+                <NavLink to="/logs" onClick={()=> setPage("Logs")}>
+                    Logs
                 </NavLink>
 
-                <NavLink to="/journalctl">
+                {/* <NavLink to="/journalctl">
                     journalctl
                 </NavLink>
 
                 <NavLink to="/systemctl">
                     systemctl
-                </NavLink>
+                </NavLink> */}
 
             </nav>
 
