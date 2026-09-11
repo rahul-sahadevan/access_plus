@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./sidebar.css";
 import { useState } from "react";
+import Logout from "../logout/logout";
 
 const Sidebar = ({ isOpen,setPage }) => {
 
@@ -56,6 +57,8 @@ const Sidebar = ({ isOpen,setPage }) => {
                 </NavLink> */}
 
             </nav>
+
+            <Logout/>
 
         </aside>
     );

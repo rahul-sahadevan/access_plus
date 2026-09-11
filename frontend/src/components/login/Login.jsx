@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate,Link } from "react-router-dom";
 import axios from "axios";
 import "./login.css"
+import { toast } from "react-toastify";
 
 
 const Login  = ()=>{
@@ -15,7 +16,7 @@ const Login  = ()=>{
         try{
 
             if(!userId || !password){
-                alert("All fields required")
+                toast.error("All fields required")
                 return
             }
 
@@ -28,18 +29,21 @@ const Login  = ()=>{
                 }
             )
             const responseData = response.data
-            console.log(responseData)
 
             if(responseData.status === 200){
-                alert(responseData.message)
-                navigate("/dashboard")
+                toast.success("Login Scuccesful!")
+                setTimeout(()=>{
+                    navigate("/dashboard")
+                },1000)
                 return
             }
 
+            toast.error(responseData.message)
+
         }
         catch(error){
-            alert(error)
             console.log(error)
+            toast.error(error)
         }
     }
     return(

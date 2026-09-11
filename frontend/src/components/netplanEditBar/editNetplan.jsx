@@ -248,6 +248,7 @@ const EditNetplan = ({
                             onChange={(e) =>
                                 setIsDefault(e.target.checked)
                             }
+                          
                         />
 
                         <span className="custom-checkbox"></span>
@@ -286,6 +287,7 @@ const EditNetplan = ({
                                     onChange={(e) =>
                                         setGateway(e.target.value)
                                     }
+                                    required
                                 />
 
                             </div>

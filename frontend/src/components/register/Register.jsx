@@ -4,6 +4,7 @@ import { Link ,useNavigate} from "react-router-dom";
 import "./register.css"
 import axios from "axios"
 import validator from "validator"
+import { toast } from "react-toastify";
 
 
 const Register = ()=>{
@@ -40,7 +41,7 @@ const Register = ()=>{
             console.log(inputValidation)
 
             if(inputValidation){
-                alert(inputValidation)
+                toast.error(inputValidation)
                 return
             }
             const response = await axios.post(`${URL}/api/register`,{
@@ -52,7 +53,7 @@ const Register = ()=>{
             console.log(data)
 
             if(data.status === 201){
-                alert(data.message)
+                toast.success("Registration Successful")
                 navigate("/login")
                 return
             }
@@ -62,7 +63,7 @@ const Register = ()=>{
         }
         catch(error){
             console.log(error)
-            alert(error.response?.data?.message || error.message || "Registration Failed!")
+            toast.error(error.response?.data?.message || error.message || "Registration Failed!")
         }
     }
 

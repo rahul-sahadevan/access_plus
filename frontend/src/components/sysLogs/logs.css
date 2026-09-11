@@ -1,0 +1,364 @@
+/* =========================================
+   SYSTEM LOGS CARD
+========================================= */
+
+.system-logs-card {
+    width: 100%;
+
+    padding: 24px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151a21,
+            #0d1117
+        );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.system-logs-header {
+    padding-bottom: 20px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+.system-logs-header h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 600;
+}
+
+
+.system-logs-header p {
+    margin: 6px 0 0;
+
+    color: #8b949e;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   LOG CONTROLS
+========================================= */
+
+.system-logs-controls {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   LOG BUTTON
+========================================= */
+
+.system-log-btn {
+    min-width: 110px;
+
+    padding: 10px 18px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    color: #9da7b3;
+
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.system-log-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border-color:
+        rgba(255, 255, 255, 0.15);
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ACTIVE BUTTON
+========================================= */
+
+.system-log-btn-active {
+    background:
+        rgba(59, 130, 246, 0.12);
+
+    border-color:
+        rgba(59, 130, 246, 0.4);
+
+    color: #60a5fa;
+
+    box-shadow:
+        0 0 12px rgba(59, 130, 246, 0.08);
+}
+
+
+.system-log-btn-active:hover {
+    background:
+        rgba(59, 130, 246, 0.16);
+
+    border-color:
+        rgba(59, 130, 246, 0.5);
+}
+
+
+/* =========================================
+   LOG OUTPUT
+========================================= */
+
+.system-log-output {
+    margin-top: 20px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 10px;
+
+    background: #080b0f;
+}
+
+
+/* =========================================
+   OUTPUT HEADER
+========================================= */
+
+.system-log-output-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 11px 15px;
+
+    border-bottom:
+        1px solid rgba(255, 255, 255, 0.07);
+
+    background:
+        rgba(255, 255, 255, 0.025);
+}
+
+
+/* =========================================
+   TERMINAL TITLE
+========================================= */
+
+.system-log-terminal-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: #d6deeb;
+
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   TERMINAL DOT
+========================================= */
+
+.system-log-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 8px rgba(34, 197, 94, 0.7);
+}
+
+
+/* =========================================
+   OUTPUT LABEL
+========================================= */
+
+.system-log-live {
+    padding: 4px 8px;
+
+    border:
+        1px solid rgba(34, 197, 94, 0.2);
+
+    border-radius: 5px;
+
+    background:
+        rgba(34, 197, 94, 0.06);
+
+    color: #4ade80;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.6px;
+}
+
+
+/* =========================================
+   TERMINAL
+========================================= */
+
+.system-log-terminal {
+    height: 400px;
+
+    overflow: auto;
+}
+
+
+/* =========================================
+   LOG TEXT
+========================================= */
+
+.system-log-terminal pre {
+    margin: 0;
+
+    padding: 18px;
+
+    color: #c9d1d9;
+
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        Consolas,
+        monospace;
+
+    font-size: 12px;
+
+    line-height: 1.65;
+
+    white-space: pre;
+
+    tab-size: 4;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.system-log-terminal::-webkit-scrollbar {
+    width: 7px;
+
+    height: 7px;
+}
+
+
+.system-log-terminal::-webkit-scrollbar-track {
+    background: #080b0f;
+}
+
+
+.system-log-terminal::-webkit-scrollbar-thumb {
+    background: #30363d;
+
+    border-radius: 10px;
+}
+
+
+.system-log-terminal::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .system-logs-card {
+        padding: 18px;
+    }
+
+
+    .system-logs-controls {
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+    }
+
+
+    .system-log-btn {
+        min-width: 0;
+
+        padding: 9px 10px;
+
+        font-size: 12px;
+    }
+
+
+    .system-log-terminal {
+        height: 350px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .system-logs-controls {
+        grid-template-columns: 1fr;
+    }
+
+}

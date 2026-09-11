@@ -237,6 +237,27 @@ const getSysLogs = async(cmd)=>{
     }
 }
 
+// function for logout
+const logout = async()=>{
+    try{
+        const response = await axios.post(`${apiUrl}/api/logout`,{},{
+            withCredentials:true
+        })
+        console.log(response.data)
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
+// function to check the session expiry
+
+// const checkSessionExpired = ()=>{
+
+
+// }
+
 
 
 
@@ -252,5 +273,6 @@ export default {
     getNetplanFile,
     applyNetplan,
     nginxCmdFun,
-    getSysLogs
+    getSysLogs,
+    logout
 }

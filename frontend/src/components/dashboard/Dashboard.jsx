@@ -6,14 +6,15 @@ import axios from "axios";
 import systemService from "../apiCallFun"
 
 
-const Dashboard = () => {
+const Dashboard = ({networkStatus,setNetworkStatus}) => {
 
     const [serverData,setServerData] = useState({})
     const [ramPercent,setRamPercent] = useState(0)
     const [cpuData,setCpuData] = useState({})
     const [diskUsage,setDiskUsage] = useState({})
-    const [networkStatus,setNetworkStatus] = useState([])
     const [serviceData,setServiceData] = useState([])
+
+   
 
 
     const getApiCallFun = async()=>{
@@ -52,6 +53,19 @@ const Dashboard = () => {
     }
     useEffect(()=>{
         getApiCallFun()
+    },[])
+
+    useEffect(()=>{
+        const cleanUp = socketConnection({
+            setServerData,
+            setCpuData,
+            setRamPercent,
+            setDiskUsage,
+            setNetworkStatus,
+            serviceData,
+            setServiceData
+        })
+        return cleanUp
     },[])
 
 
@@ -170,7 +184,7 @@ const Dashboard = () => {
                         <div
                             className="progress-bar"
                             style={{
-                                width: `${diskUsage.diskPercentage}%`
+                                width: `${diskUsage.diskUsagePercent}%`
                             }}
                         />
                     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState,useMemo } from "react";
 import "./netplan.css";
+import { dump } from "js-yaml";
 import systemServices from "../apiCallFun";
 import EditNetplan from "../netplanEditBar/editNetplan";
 import ApplyNetplan from "../applyNetplan/applyNetplan";
@@ -24,6 +25,7 @@ const NetplanConf = () => {
 
     // DNS
     const [isDns, setIsDns] = useState(false);
+    console.log(isDns,'dns')
     const [dnsServers, setDnsServers] = useState("");
 
     // Routes
@@ -39,6 +41,8 @@ const NetplanConf = () => {
             ? JSON.parse(savedNetplan)
             : null;
     });
+
+    console.log(netplan,"netplan from netplan page")
 
     // apply netplan
     const [applyNetplan,setApplyNetplan] = useState(false)
@@ -205,7 +209,83 @@ const NetplanConf = () => {
         );
 
 
+
+        // DHCP
+        setIsDhcp(
+            interfaceConfig?.dhcp4 ?? false
+        );
+
+        // Routes
+        const routes = interfaceConfig?.routes || [];
+
+        const defaultRoute = routes.find(
+            route => route.to === "default"
+        );
+
+        // Default interface
+        setIsDefault(
+            !!defaultRoute
+        );
+
+        // Gateway
+        setGateway(
+            defaultRoute?.via || ""
+        );
+
+        // Static routes
+        const staticRoutes = routes
+            .filter(route => route.to !== "default")
+            .map(route => ({
+                to: route.to || "",
+                via: route.via || ""
+            }));
+
+        setRoutes(staticRoutes);
+
+        setIsRoutes(
+            staticRoutes.length > 0
+        );
+
+        // DNS
+        const dnsAddresses =
+            interfaceConfig?.nameservers?.addresses || [];
+
+        setIsDns(
+            dnsAddresses.length > 0
+        );
+
+        setDnsServers(
+            dnsAddresses.join(", ")
+        );
+
+
     };
+
+
+    // function for download button
+    const handleDownloadNetplan= ()=>{
+        const yamlData = dump(netplan)
+
+        // create blob
+        const blob = new Blob([yamlData],{
+            type:"text/yaml"
+        })
+
+        // create URL
+        const url = URL.createObjectURL(blob)
+
+        // create link
+        const link = document.createElement("a")
+        link.href = url
+        link.download = 'netplan.yaml'
+
+        document.body.append(link)
+        link.click()
+
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+
+    }
 
 
     return (
@@ -229,7 +309,7 @@ const NetplanConf = () => {
 
                 <div className="netplan-header-actions">
 
-                    <button className="netplan-secondary-btn">
+                    <button onClick={handleDownloadNetplan} className="netplan-secondary-btn">
                         <span>↓</span>
                         Download
                     </button>
@@ -402,7 +482,7 @@ const NetplanConf = () => {
                                     <div>
 
                                         <span className="config-badge">
-                                            No
+                                            {isDefault ? "true" : "false"}
                                         </span>
 
                                     </div>
@@ -413,7 +493,7 @@ const NetplanConf = () => {
                                     <div>
 
                                         <span className="config-badge">
-                                            No
+                                            {`${netplan?.network?.ethernets?.[iface?.interface]?.dhcp4}`}
                                         </span>
 
                                     </div>

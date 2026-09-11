@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import systemServices from "../apiCallFun"
+import socketConnection from "../socket";
 import "./interfaces.css"
 
 
 
-const Interfaces = ()=>{
+const Interfaces = ({networkStatus,setNetworkStatus})=>{
+    console.log(networkStatus)
 
-    const [interfaces,setInterfaces] = useState([])
-    console.log(interfaces)
 
     const getInterfaces = async()=>{
         try{
             const ifaces = await systemServices.getNetorkStatus()
-            setInterfaces(ifaces.data)
+            setNetworkStatus(ifaces.data)
         }
         catch(error){
             console.log(error)
@@ -22,6 +22,7 @@ const Interfaces = ()=>{
     useEffect(()=>{
         getInterfaces()
     },[])
+
 
 
     return(
@@ -40,7 +41,7 @@ const Interfaces = ()=>{
                 </div>
 
                 <div className="interface-count">
-                    {interfaces.length} Interfaces
+                    {networkStatus.length} Interfaces
                 </div>
 
             </div>
@@ -50,7 +51,7 @@ const Interfaces = ()=>{
 
             <div className="interface-grid">
 
-                {interfaces.map((item) => {
+                {networkStatus.map((item) => {
 
                     const isUp =
                         item.interfaceStatus?.status === "UP";

@@ -3,9 +3,9 @@ import systemServices from "../apiCallFun"
 import "./nginxPage.css"
 
 
-const NginxPage = ()=>{
+const NginxPage = ({nginxStatus,setNginxStatus})=>{
 
-    const [nginxStatus,setNginxStatus] = useState("")
+ 
     const [cmd,setCmd] = useState("")
     const[nginxTestOutput,setNginxTestOutput] = useState("")
 
