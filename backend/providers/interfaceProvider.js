@@ -2,6 +2,7 @@ const os = require("os")
 const fs = require("fs/promises")
 const {spawn} = require("child_process")
 
+const previousStats = new Map()
 const runCommand = (interfaceName)=>{
     return new Promise((resolve,reject)=>{
         const process = spawn("ip",["link","show",interfaceName])
@@ -82,9 +83,30 @@ const interfaceProvider = async()=>{
             const ifaceIP = iface[name.trim()] ? iface[name.trim()][0].cidr : ""
             const ifaceStatus =  await runCommand(name.trim())
 
-            // rx and tx bytes into mbps
-            const rxMb = Number((rxBytes / (1024 * 1024)).toFixed(2))
-            const txMb = Number((txBytes / (1024 * 1024)).toFixed(2))
+            // rx and tx calci
+            const currentTime = Date.now()
+            const previous = previousStats.get(interfaceName)
+
+            let rxMbps = 0
+            let txMbps = 0
+
+            if(previous){
+                const timeDiff = (currentTime - previous.timestamp) / 1000
+
+                const rxBytesDiff = rxBytes - previous.rxBytes
+                const txBytesDiff = txBytes = previous.txBytes
+
+                rxMbps = (rxBytesDiff * 8) / timeDiff / (1024 * 1024)
+                txMbps = (txBytesDiff * 8) / timeDiff / (1024 * 1024)
+
+
+            }
+
+            previousStats.set(interfaceName,{
+                rxBytes,
+                txBytes,
+                currentTime
+            })
         
 
             return {

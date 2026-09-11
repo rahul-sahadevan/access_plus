@@ -28,6 +28,9 @@ const loginUser = async(req,res)=>{
 
         const loginUser = await loginService(req.body)
         console.log("login user details",loginUser)
+        if(loginUser.status !== 200){
+            return res.send(loginUser)
+        }
 
         res.cookie("session_token",loginUser.session_token,{
             httpOnly: true,
@@ -56,13 +59,16 @@ const logoutUser = async(req,res)=>{
 
     try{
         const session_token = req.cookies.session_token
+        console.log(session_token)
 
         // call function to remove the session_token from db
         const sessionRemovedFromDb = await logoutService({session_token})
         
         // clear the session token present in the browser cookie
         res.clearCookie("session_token",{
-            httpOnly:true
+            httpOnly:true,
+            secure: false,
+            sameSite: "lax"
         })
 
         return res.send(sessionRemovedFromDb)

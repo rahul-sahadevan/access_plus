@@ -4,24 +4,26 @@ const { nginxStatusService } = require("../services/nginxService")
 const { osInfoProvider } = require("../providers/osInfo")
 const interfaceProvider = require("../providers/interfaceProvider")
 const interfaceService = require("../services/interfaceService")
+const diskProvider = require("../providers/diskProvider")
 
 
 const dataForSocket = async()=>{
     try{
 
-        const {cpuPercent} = await cpuInfoService()
-        const {activeState} = await nginxStatusService()
-        const {totalMemGb,freeMemGb} = await osInfoProvider()
-        const interfaceTraffic  = await interfaceService()
+        const cpuData = await cpuInfoService()
+        const serviceData = await nginxStatusService()
+        const serverData = await osInfoProvider()
+        const networkStatus  = await interfaceService()
+        const diskUsage = await diskProvider()
 
 
 
         return{
-            cpuPercent,
-            activeState,
-            totalMemGb,
-            freeMemGb,
-            interfaceTraffic
+            cpuData,
+            serviceData,
+            diskUsage,
+            serverData,
+            networkStatus
 
         }
     }

@@ -91,8 +91,10 @@ const loginService = async({userId,password})=>{
             }
         }
         
-
-        return {session_token}
+        return {
+            status:200,
+            session_token
+        }
 
         
     }
