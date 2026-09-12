@@ -82,6 +82,7 @@ const interfaceProvider = async()=>{
 
             const ifaceIP = iface[name.trim()] ? iface[name.trim()][0].cidr : ""
             const ifaceStatus =  await runCommand(name.trim())
+            const interfaceName = name.trim()
 
             // rx and tx calci
             const currentTime = Date.now()
@@ -94,7 +95,7 @@ const interfaceProvider = async()=>{
                 const timeDiff = (currentTime - previous.timestamp) / 1000
 
                 const rxBytesDiff = rxBytes - previous.rxBytes
-                const txBytesDiff = txBytes = previous.txBytes
+                const txBytesDiff = txBytes - previous.txBytes
 
                 rxMbps = (rxBytesDiff * 8) / timeDiff / (1024 * 1024)
                 txMbps = (txBytesDiff * 8) / timeDiff / (1024 * 1024)
@@ -105,7 +106,7 @@ const interfaceProvider = async()=>{
             previousStats.set(interfaceName,{
                 rxBytes,
                 txBytes,
-                currentTime
+                timestamp:currentTime
             })
         
 
@@ -113,11 +114,11 @@ const interfaceProvider = async()=>{
                 interface: name.trim(),
                 interfaceIP: ifaceIP,
                 interfaceStatus: ifaceStatus,
-                rxMb,
+                rxMbps:Number(rxMbps.toFixed(4)),
                 rxPackets,
                 rxErrors,
                 rxDrops,
-                txMb,
+                txMbps:Number(txMbps.toFixed(4)),
                 txPackets,
                 txErrors,
                 txDrops,

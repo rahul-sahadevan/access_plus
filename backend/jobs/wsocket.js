@@ -2,26 +2,25 @@ const WebSocket = require("ws")
 const { cpuInfoService } = require("../services/sysService")
 const { nginxStatusService } = require("../services/nginxService")
 const { osInfoProvider } = require("../providers/osInfo")
-const interfaceProvider = require("../providers/interfaceProvider")
 const interfaceService = require("../services/interfaceService")
-const diskProvider = require("../providers/diskProvider")
+const {diskInfoService} = require("../services/sysService")
 
 
 const dataForSocket = async()=>{
     try{
 
         const cpuData = await cpuInfoService()
-        const serviceData = await nginxStatusService()
+        const nginxInfo = await nginxStatusService()
         const serverData = await osInfoProvider()
         const networkStatus  = await interfaceService()
-        const diskUsage = await diskProvider()
+        const diskUsage = await diskInfoService()
 
 
 
         return{
             cpuData,
-            serviceData,
-            diskUsage,
+            nginxInfo,
+            diskUsage:diskUsage.data,
             serverData,
             networkStatus
 
