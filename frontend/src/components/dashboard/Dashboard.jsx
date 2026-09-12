@@ -14,6 +14,7 @@ const Dashboard = ({networkStatus,setNetworkStatus}) => {
     const [diskUsage,setDiskUsage] = useState({})
     const [serviceData,setServiceData] = useState([])
 
+
    
 
 
@@ -34,7 +35,6 @@ const Dashboard = ({networkStatus,setNetworkStatus}) => {
 
             // disk information
             const diskInfo = await systemService.diskInformation()
-            console.log(diskInfo)
             setDiskUsage(diskInfo)
 
             // interface information
@@ -44,6 +44,7 @@ const Dashboard = ({networkStatus,setNetworkStatus}) => {
             // nginx information
             const nginxInfo = await systemService.getNginxStatus()
             setServiceData([...serviceData,nginxInfo])
+            console.log(serviceData)
             
 
         }
@@ -260,11 +261,41 @@ const Dashboard = ({networkStatus,setNetworkStatus}) => {
 
                                 <div className="traffic-value">
                                     <span>
-                                        ↓ {network.rxMb}mb
+                                        ↓  {
+                                            network.rxMbps < 1 ? (
+                                                <strong>
+                                                    {(network.rxMbps * 1000).toFixed(2)}
+                                                    <small> Kbps</small>
+                                                </strong>
+
+                                            )
+                                            :
+                                            (
+                                                <strong>
+                                                    {network.rxMbps}
+                                                    <small> Mbps</small>
+                                                </strong>
+                                            )
+                                        }
                                     </span>
 
                                     <span>
-                                        ↑ {network.txMb}mb
+                                        ↑  {
+                                                network.txMbps < 1 ? (
+                                                    <strong>
+                                                        {(network.txMbps * 1000).toFixed(2)}
+                                                        <small> Kbps</small>
+                                                    </strong>
+
+                                                )
+                                                :
+                                                (
+                                                    <strong>
+                                                        {network.txMbps}
+                                                        <small> Mbps</small>
+                                                    </strong>
+                                                )
+                                            }
                                     </span>
                                 </div>
 

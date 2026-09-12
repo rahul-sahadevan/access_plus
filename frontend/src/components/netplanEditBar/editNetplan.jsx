@@ -1,6 +1,7 @@
 import React from "react";
 import "./editNetplan.css";
 import systemServices from "../apiCallFun";
+import { toast } from "react-toastify";
 
 const EditNetplan = ({
     iface,
@@ -44,7 +45,7 @@ const EditNetplan = ({
     // function to handle the form submission
     console.log(addresses,"addresses")
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
 
         e.preventDefault();
 
@@ -78,8 +79,29 @@ const EditNetplan = ({
 
         setNetplan(updatedNetplanObject)
         // Close edit panel
-        setEdit(false);
+        const id = toast.loading("Upadating...")
 
+        try{
+            await new Promise((resolve=> setTimeout(resolve,2000)))
+            toast.update(id,{
+                render: "Updated successfully!", 
+                type: "success", 
+                isLoading: false,
+                autoClose: 1000
+            })
+        }
+        catch(error){
+            toast.update(id,{
+                render: error?.message || "Updation failed!", 
+                type: "error", 
+                isLoading: false,
+                autoClose: 1000
+            })
+        }
+
+        setEdit(false);
+        return
+        
     };
 
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import systemServices from "../apiCallFun"
 import "./nginxPage.css"
+import { toast } from "react-toastify";
 
 
 const NginxPage = ({nginxStatus,setNginxStatus})=>{
@@ -33,9 +34,13 @@ const NginxPage = ({nginxStatus,setNginxStatus})=>{
             if(cmd === "stop" || cmd === "start" || cmd === "restart" || cmd === "reload"){
                 await nginxStatusCall()
             }
+
+            toast(`nginx ${cmd} executed succesfully`)
+            return
         }
         catch(error){
             console.log(error)
+            toast.error(error)
         }
     }
     

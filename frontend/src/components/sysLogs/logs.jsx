@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import systemServices from "../apiCallFun"
 import "./logs.css"
+import { toast } from "react-toastify";
 
 
 const Logs = ()=>{
@@ -10,18 +11,37 @@ const Logs = ()=>{
 
     const getLogs = async()=>{
         try{
+            const id = toast.loading(`Executing ${cmd}...`)
+            await new Promise((resolve)=> setTimeout(resolve,2000))
+
             const out = await systemServices.getSysLogs(cmd)
             setLog(out)
+
+            toast.update(id,{
+                render:`${cmd} logs fetched!`,
+                type:"success",
+                isLoading:false,
+                autoClose:1000
+            })
+
+            return
         }
         catch(error){
+            toast.update(id, {
+                render: error?.message || "Failed to fetch logs",
+                type: "error",
+                isLoading: false,
+                autoClose: 2000
+            });
             console.log(error)
         }
     }
 
 
     useEffect(()=>{
+        if(!cmd) return
         getLogs()
-    },[cmd,log])
+    },[cmd])
 
     return (
         <div className="system-logs-card">

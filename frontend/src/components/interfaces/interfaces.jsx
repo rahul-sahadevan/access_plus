@@ -12,6 +12,7 @@ const Interfaces = ({networkStatus,setNetworkStatus})=>{
     const getInterfaces = async()=>{
         try{
             const ifaces = await systemServices.getNetorkStatus()
+            console.log(ifaces.data)
             setNetworkStatus(ifaces.data)
         }
         catch(error){
@@ -115,11 +116,22 @@ const Interfaces = ({networkStatus,setNetworkStatus})=>{
                                         <span>↓</span>
                                         Receive
                                     </div>
+                                    {
+                                        item.rxMbps < 1 ? (
+                                            <strong>
+                                                {(item.rxMbps * 1000).toFixed(2)}
+                                                <small> Kbps</small>
+                                            </strong>
 
-                                    <strong>
-                                        {item.rxMb}
-                                        <small> MiB</small>
-                                    </strong>
+                                        )
+                                        :
+                                        (
+                                            <strong>
+                                                {item.rxMbps}
+                                                <small> Mbps</small>
+                                            </strong>
+                                        )
+                                    }
 
                                     <p>
                                         {item.rxPackets.toLocaleString()}
@@ -139,8 +151,22 @@ const Interfaces = ({networkStatus,setNetworkStatus})=>{
                                     </div>
 
                                     <strong>
-                                        {item.txMb}
-                                        <small> MiB</small>
+                                    {
+                                        item.txMbps < 1 ? (
+                                            <strong>
+                                                {(item.txMbps * 1000).toFixed(2)}
+                                                <small> Kbps</small>
+                                            </strong>
+
+                                        )
+                                        :
+                                        (
+                                            <strong>
+                                                {item.txMbps}
+                                                <small> Mbps</small>
+                                            </strong>
+                                        )
+                                    }
                                     </strong>
 
                                     <p>

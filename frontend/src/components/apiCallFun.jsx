@@ -36,6 +36,7 @@ const cpuInfomation = async()=>{
 const diskInformation = async()=>{
     try{
         const response  = await axios.get(`${apiUrl}/sys/diskinfo`)
+        console.log(response.data.data,"disk info")
         return response.data.data
         
     }
